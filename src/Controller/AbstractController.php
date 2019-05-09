@@ -6,6 +6,7 @@ use BasicApi\Exception\Http\ApiProblemException;
 use BasicApi\Model\Http\ApiProblem;
 use BasicApi\Model\Http\ApiResponse;
 use BasicApi\Model\SerializableInterface;
+use Exception;
 use JMS\Serializer\SerializationContext;
 use JMS\Serializer\SerializerInterface;
 use LogicException;
@@ -103,11 +104,12 @@ abstract class AbstractController extends BaseAbstractController
     }
 
     /**
+     * @param Exception $e
      * @return ApiProblemException
      */
-    protected function getInternalServerErrorException(): ApiProblemException
+    protected function getInternalServerErrorException(Exception $e): ApiProblemException
     {
-        return $this->createApiException(null, ApiResponse::HTTP_INTERNAL_SERVER_ERROR);
+        return $this->createApiException(null, ApiResponse::HTTP_INTERNAL_SERVER_ERROR, $e->getMessage());
     }
 
     /**
