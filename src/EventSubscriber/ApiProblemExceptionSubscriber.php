@@ -2,7 +2,6 @@
 
 namespace BasicApi\EventSubscriber;
 
-use BasicApi\Exception\Http\ApiHttpException;
 use BasicApi\Exception\Http\ApiProblemException;
 use BasicApi\Factory\Http\ApiProblemResponseFactory;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;

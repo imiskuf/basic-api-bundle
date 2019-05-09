@@ -4,8 +4,8 @@ namespace BasicApi\Factory\Entity;
 
 use BasicApi\Exception\Entity\EntityBuildException;
 use BasicApi\Model\DtoInterface;
+use BasicApi\Model\EntityInterface;
 use Exception;
-use Mamatata\Model\Common\EntityInterface;
 use Symfony\Component\PropertyAccess\PropertyAccessor;
 
 class EntityFactory

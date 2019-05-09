@@ -6,11 +6,11 @@ use BasicApi\Exception\Entity\EntityBuildException;
 use BasicApi\Exception\Entity\EntityOperationException;
 use BasicApi\Factory\Entity\EntityFactory;
 use BasicApi\Model\DtoInterface;
+use BasicApi\Model\EntityInterface;
 use Doctrine\ORM\EntityManager as BaseEntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\ORMException;
-use Mamatata\Model\Common\EntityInterface;
 
 class EntityManager
 {

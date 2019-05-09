@@ -11,7 +11,13 @@
         }
     ],
     "require": {
-        "php": "^7.1.0"
+        "php": "^7.1.0",
+        "doctrine/orm": "^2.6",
+        "jms/serializer-bundle": "^3.3",
+        "symfony/expression-language": "*",
+        "symfony/property-access": "*",
+        "symfony/validator": "*",
+        "pagerfanta/pagerfanta": "^1.1"
     },
     "require-dev": {},
     "autoload": {
