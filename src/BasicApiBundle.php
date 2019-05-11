@@ -1,6 +1,6 @@
 <?php
 
-namespace BasicApi;
+namespace Imiskuf\BasicApiBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
