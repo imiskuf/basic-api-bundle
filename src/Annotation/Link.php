@@ -1,6 +1,6 @@
 <?php
 
-namespace BasicApi\Annotation;
+namespace Imiskuf\BasicApiBundle\Annotation;
 
 use Doctrine\Common\Annotations\Annotation;
 use Doctrine\Common\Annotations\Annotation\Required;

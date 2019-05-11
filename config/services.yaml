@@ -4,13 +4,13 @@ services:
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
         public: false       # Allows optimizing the container by removing unused services; this also means
 
-    BasicApi\:
+    Imiskuf\BasicApiBundle\:
         resource: '../src/*'
 
-    BasicApi\Controller\:
+    Imiskuf\BasicApiBundle\Controller\:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
 
-    BasicApi\EventSubscriber\LinkSerializerSubscriber:
+    Imiskuf\BasicApiBundle\EventSubscriber\LinkSerializerSubscriber:
         tags:
             - { name: jms_serializer.event_subscriber }

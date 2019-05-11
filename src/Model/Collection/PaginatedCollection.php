@@ -1,8 +1,8 @@
 <?php
 
-namespace BasicApi\Model\Collection;
+namespace Imiskuf\BasicApiBundle\Model\Collection;
 
-use BasicApi\Model\SerializableInterface;
+use Imiskuf\BasicApiBundle\Model\SerializableInterface;
 
 class PaginatedCollection implements SerializableInterface
 {

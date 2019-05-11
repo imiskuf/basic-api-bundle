@@ -1,6 +1,6 @@
 <?php
 
-namespace BasicApi\DependencyInjection;
+namespace Imiskuf\BasicApiBundle\DependencyInjection;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;

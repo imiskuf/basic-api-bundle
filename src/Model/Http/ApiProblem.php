@@ -1,8 +1,8 @@
 <?php
 
-namespace BasicApi\Model\Http;
+namespace Imiskuf\BasicApiBundle\Model\Http;
 
-use BasicApi\Model\ArrayableInterface;
+use Imiskuf\BasicApiBundle\Model\ArrayableInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 class ApiProblem implements ArrayableInterface

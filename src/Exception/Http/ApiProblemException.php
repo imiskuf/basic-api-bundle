@@ -1,8 +1,8 @@
 <?php
 
-namespace BasicApi\Exception\Http;
+namespace Imiskuf\BasicApiBundle\Exception\Http;
 
-use BasicApi\Model\Http\ApiProblem;
+use Imiskuf\BasicApiBundle\Model\Http\ApiProblem;
 use Exception;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 

@@ -1,8 +1,8 @@
 <?php
 
-namespace BasicApi\Repository;
+namespace Imiskuf\BasicApiBundle\Repository;
 
-use BasicApi\Factory\Repository\CriteriaFactory;
+use Imiskuf\BasicApiBundle\Factory\Repository\CriteriaFactory;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Component\HttpFoundation\ParameterBag;
@@ -18,7 +18,7 @@ abstract class AbstractRepository extends EntityRepository
      * @param ParameterBag $parameters
      * @param array $excludedProperties
      * @return QueryBuilder
-     * @throws \BasicApi\Exception\Repository\FilterArgumentException
+     * @throws \Imiskuf\BasicApiBundle\Exception\Repository\FilterArgumentException
      * @throws \Doctrine\ORM\Query\QueryException
      */
     public function getSearchQueryBuilder(ParameterBag $parameters, array $excludedProperties = []): QueryBuilder

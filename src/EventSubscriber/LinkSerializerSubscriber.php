@@ -1,8 +1,8 @@
 <?php
 
-namespace BasicApi\EventSubscriber;
+namespace Imiskuf\BasicApiBundle\EventSubscriber;
 
-use BasicApi\Annotation\Link;
+use Imiskuf\BasicApiBundle\Annotation\Link;
 use Doctrine\Common\Annotations\Reader;
 use JMS\Serializer\EventDispatcher\EventSubscriberInterface;
 use JMS\Serializer\EventDispatcher\ObjectEvent;

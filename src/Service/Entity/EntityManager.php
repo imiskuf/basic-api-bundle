@@ -1,12 +1,12 @@
 <?php
 
-namespace BasicApi\Service\Entity;
+namespace Imiskuf\BasicApiBundle\Service\Entity;
 
-use BasicApi\Exception\Entity\EntityBuildException;
-use BasicApi\Exception\Entity\EntityOperationException;
-use BasicApi\Factory\Entity\EntityFactory;
-use BasicApi\Model\DtoInterface;
-use BasicApi\Model\EntityInterface;
+use Imiskuf\BasicApiBundle\Exception\Entity\EntityBuildException;
+use Imiskuf\BasicApiBundle\Exception\Entity\EntityOperationException;
+use Imiskuf\BasicApiBundle\Factory\Entity\EntityFactory;
+use Imiskuf\BasicApiBundle\Model\DtoInterface;
+use Imiskuf\BasicApiBundle\Model\EntityInterface;
 use Doctrine\ORM\EntityManager as BaseEntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;

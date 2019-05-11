@@ -1,9 +1,9 @@
 <?php
 
-namespace BasicApi\Factory\Repository;
+namespace Imiskuf\BasicApiBundle\Factory\Repository;
 
-use BasicApi\Exception\Repository\FilterArgumentException;
-use BasicApi\Model\Repository\FilterOperator;
+use Imiskuf\BasicApiBundle\Exception\Repository\FilterArgumentException;
+use Imiskuf\BasicApiBundle\Model\Repository\FilterOperator;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\Common\Collections\Expr\Comparison;
 

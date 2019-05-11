@@ -1,9 +1,9 @@
 <?php
 
-namespace BasicApi\EventSubscriber;
+namespace Imiskuf\BasicApiBundle\EventSubscriber;
 
-use BasicApi\Exception\Http\ApiProblemException;
-use BasicApi\Factory\Http\ApiProblemResponseFactory;
+use Imiskuf\BasicApiBundle\Exception\Http\ApiProblemException;
+use Imiskuf\BasicApiBundle\Factory\Http\ApiProblemResponseFactory;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpKernel\KernelEvents;

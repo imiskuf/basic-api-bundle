@@ -1,6 +1,6 @@
 <?php
 
-namespace BasicApi\Exception\Repository;
+namespace Imiskuf\BasicApiBundle\Exception\Repository;
 
 use InvalidArgumentException;
 

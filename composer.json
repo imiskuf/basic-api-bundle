@@ -1,6 +1,6 @@
 {
-    "name": "imiskuf/sf-basic-api",
-    "description": "Provides class for simple API implementation.",
+    "name": "imiskuf/basic-api-bundle",
+    "description": "Basic API bundle for Symfony 4+",
     "type": "library",
     "license": "GPL-3.0-or-later",
     "minimum-stability": "stable",
@@ -22,7 +22,7 @@
     "require-dev": {},
     "autoload": {
         "psr-4": {
-            "BasicApi\\": "src/"
+            "Imiskuf\\BasicApiBundle\\": "src/"
         }
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace BasicApi\Model\Http;
+namespace Imiskuf\BasicApiBundle\Model\Http;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
 

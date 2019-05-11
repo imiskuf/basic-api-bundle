@@ -1,6 +1,6 @@
 <?php
 
-namespace BasicApi\Model;
+namespace Imiskuf\BasicApiBundle\Model;
 
 interface ViewableInterface extends SerializableInterface
 {

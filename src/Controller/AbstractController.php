@@ -1,11 +1,11 @@
 <?php
 
-namespace BasicApi\Controller;
+namespace Imiskuf\BasicApiBundle\Controller;
 
-use BasicApi\Exception\Http\ApiProblemException;
-use BasicApi\Model\Http\ApiProblem;
-use BasicApi\Model\Http\ApiResponse;
-use BasicApi\Model\SerializableInterface;
+use Imiskuf\BasicApiBundle\Exception\Http\ApiProblemException;
+use Imiskuf\BasicApiBundle\Model\Http\ApiProblem;
+use Imiskuf\BasicApiBundle\Model\Http\ApiResponse;
+use Imiskuf\BasicApiBundle\Model\SerializableInterface;
 use Exception;
 use JMS\Serializer\SerializationContext;
 use JMS\Serializer\SerializerInterface;

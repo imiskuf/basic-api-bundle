@@ -1,6 +1,6 @@
 <?php
 
-namespace BasicApi\Exception\Entity;
+namespace Imiskuf\BasicApiBundle\Exception\Entity;
 
 use RuntimeException;
 

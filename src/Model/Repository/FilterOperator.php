@@ -1,6 +1,6 @@
 <?php
 
-namespace BasicApi\Model\Repository;
+namespace Imiskuf\BasicApiBundle\Model\Repository;
 
 use Doctrine\Common\Collections\Expr\Comparison;
 

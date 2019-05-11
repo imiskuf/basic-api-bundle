@@ -1,8 +1,8 @@
 <?php
 
-namespace BasicApi\Factory\Http;
+namespace Imiskuf\BasicApiBundle\Factory\Http;
 
-use BasicApi\Model\Http\ApiProblem;
+use Imiskuf\BasicApiBundle\Model\Http\ApiProblem;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class ApiProblemResponseFactory

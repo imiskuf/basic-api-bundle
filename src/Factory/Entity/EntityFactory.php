@@ -1,10 +1,10 @@
 <?php
 
-namespace BasicApi\Factory\Entity;
+namespace Imiskuf\BasicApiBundle\Factory\Entity;
 
-use BasicApi\Exception\Entity\EntityBuildException;
-use BasicApi\Model\DtoInterface;
-use BasicApi\Model\EntityInterface;
+use Imiskuf\BasicApiBundle\Exception\Entity\EntityBuildException;
+use Imiskuf\BasicApiBundle\Model\DtoInterface;
+use Imiskuf\BasicApiBundle\Model\EntityInterface;
 use Exception;
 use Symfony\Component\PropertyAccess\PropertyAccessor;
 

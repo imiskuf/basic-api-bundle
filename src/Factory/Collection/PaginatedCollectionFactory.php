@@ -1,8 +1,8 @@
 <?php
 
-namespace BasicApi\Factory\Collection;
+namespace Imiskuf\BasicApiBundle\Factory\Collection;
 
-use BasicApi\Model\Collection\PaginatedCollection;
+use Imiskuf\BasicApiBundle\Model\Collection\PaginatedCollection;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Router;
