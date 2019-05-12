@@ -28,7 +28,11 @@ class PaginatedCollectionFactory
      * @param Request $request
      * @return PaginatedCollection
      */
-    public function createCollection(Pagerfanta $pagerfanta, Request $request): PaginatedCollection
+    public function createCollection(
+        Pagerfanta $pagerfanta,
+        Request $request,
+        callable $collectionCallback = null
+    ): PaginatedCollection
     {
         $page = $request->query->get('page', 1);
         $maxPerPage = $request->query->get('count', PaginatedCollection::DEFAULT_ITEMS_PER_PAGE);
@@ -37,6 +41,9 @@ class PaginatedCollectionFactory
         $pagerfanta->setCurrentPage($page);
 
         $items = iterator_to_array($pagerfanta->getCurrentPageResults());
+        if (null !== $collectionCallback) {
+            $items = array_map($collectionCallback, $items);
+        }
 
         $paginatedCollection = new PaginatedCollection($items, $pagerfanta->getNbResults(), $page);
         $this->addLinks($paginatedCollection, $pagerfanta, $page, $request);
