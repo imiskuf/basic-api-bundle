@@ -40,7 +40,11 @@ class PaginatedCollectionFactory
         $pagerfanta->setMaxPerPage($maxPerPage);
         $pagerfanta->setCurrentPage($page);
 
-        $items = iterator_to_array($pagerfanta->getCurrentPageResults());
+        $items = $pagerfanta->getCurrentPageResults();
+        if (!is_array($items)) {
+            $items = iterator_to_array($items);
+        }
+
         if (null !== $collectionCallback) {
             $items = array_map($collectionCallback, $items);
         }
