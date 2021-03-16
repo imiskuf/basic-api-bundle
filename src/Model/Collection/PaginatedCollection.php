@@ -2,16 +2,9 @@
 
 namespace Imiskuf\BasicApiBundle\Model\Collection;
 
-use Imiskuf\BasicApiBundle\Model\SerializableInterface;
-
-class PaginatedCollection implements SerializableInterface
+class PaginatedCollection extends Collection
 {
     const DEFAULT_ITEMS_PER_PAGE = 10;
-
-    /**
-     * @var array
-     */
-    private $items;
 
     /**
      * @var int
@@ -40,10 +33,11 @@ class PaginatedCollection implements SerializableInterface
      */
     public function __construct(array $items, int $total, int $page)
     {
-        $this->items = $items;
         $this->total = $total;
         $this->count = count($items);
         $this->page = $page;
+
+        parent::__construct($items);
     }
 
     /**
@@ -53,14 +47,6 @@ class PaginatedCollection implements SerializableInterface
     public function addLink(string $ref, string $url): void
     {
         $this->_links[$ref] = $url;
-    }
-
-    /**
-     * @return array
-     */
-    public function getItems(): array
-    {
-        return $this->items;
     }
 
     /**

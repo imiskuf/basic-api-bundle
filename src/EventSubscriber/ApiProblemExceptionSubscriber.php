@@ -5,7 +5,7 @@ namespace Imiskuf\BasicApiBundle\EventSubscriber;
 use Imiskuf\BasicApiBundle\Exception\Http\ApiProblemException;
 use Imiskuf\BasicApiBundle\Factory\Http\ApiProblemResponseFactory;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
+use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 class ApiProblemExceptionSubscriber implements EventSubscriberInterface
@@ -37,11 +37,11 @@ class ApiProblemExceptionSubscriber implements EventSubscriberInterface
     }
 
     /**
-     * @param GetResponseForExceptionEvent $event
+     * @param ExceptionEvent $event
      */
-    public function onKernelException(GetResponseForExceptionEvent $event): void
+    public function onKernelException(ExceptionEvent $event): void
     {
-        $exception = $event->getException();
+        $exception = $event->getThrowable();
         if (!$exception instanceof ApiProblemException) {
             return;
         }
