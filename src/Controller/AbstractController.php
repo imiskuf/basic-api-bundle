@@ -56,8 +56,11 @@ abstract class AbstractController extends BaseAbstractController
      * @param array|null $groups
      * @return ApiResponse
      */
-    protected function createApiResponse(SerializableInterface $data, int $statusCode, array $groups = null): ApiResponse
-    {
+    protected function createApiResponse(
+        SerializableInterface $data,
+        int $statusCode = ApiResponse::HTTP_OK,
+        array $groups = null
+    ): ApiResponse {
         $context = new SerializationContext();
         $context->setSerializeNull(true);
         if (null !== $groups) {
@@ -66,9 +69,8 @@ abstract class AbstractController extends BaseAbstractController
 
         $serializer = $this->container->get('jms_serializer');
         $serializedData = $serializer->serialize($data, 'json', $context);
-        $response = new ApiResponse($serializedData, $statusCode);
 
-        return $response;
+        return new ApiResponse($serializedData, $statusCode);
     }
 
     /**
