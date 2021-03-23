@@ -51,13 +51,13 @@ abstract class AbstractController extends BaseAbstractController
     }
 
     /**
-     * @param SerializableInterface $data
+     * @param mixed $data
      * @param int $statusCode
      * @param array|null $groups
      * @return ApiResponse
      */
     protected function createApiResponse(
-        SerializableInterface $data,
+        $data,
         int $statusCode = ApiResponse::HTTP_OK,
         array $groups = null
     ): ApiResponse {
