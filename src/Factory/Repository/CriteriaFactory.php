@@ -15,11 +15,18 @@ class CriteriaFactory
     private $allowedProperties;
 
     /**
-     * @param array $allowedProperties
+     * @var array
      */
-    public function __construct(array $allowedProperties)
+    private $propertyMap;
+
+    /**
+     * @param array $allowedProperties
+     * @param array $propertyMap
+     */
+    public function __construct(array $allowedProperties, array $propertyMap = [])
     {
         $this->allowedProperties = $allowedProperties;
+        $this->propertyMap = $propertyMap;
     }
 
     /**
@@ -31,7 +38,7 @@ class CriteriaFactory
         $criteria = new Criteria();
         foreach ($filterData as $propertyName => $expression) {
             if (!in_array($propertyName, $this->allowedProperties)) {
-                $filters = "'" . implode("','", $this->allowedProperties) . "'";
+                $filters = "'" . implode("', '", $this->allowedProperties) . "'";
 
                 throw new FilterArgumentException(
                     "Filter for property '{$propertyName}' is not allowed! Allowed: {$filters}."
@@ -41,7 +48,11 @@ class CriteriaFactory
             foreach ($expression as $operator => $value) {
                 $mappedOperator = $this->getMappedOperator($operator);
                 $criteria->andWhere(
-                    new Comparison($propertyName, $mappedOperator, $this->getMappedValue($mappedOperator, $value))
+                    new Comparison(
+                        $this->propertyMap[$propertyName] ?? $propertyName,
+                        $mappedOperator,
+                        $this->getMappedValue($mappedOperator, $value)
+                    )
                 );
             }
         }
@@ -55,6 +66,7 @@ class CriteriaFactory
      */
     public function createOrderCriteria(array $orderData): Criteria
     {
+        $orderParameters = [];
         foreach ($orderData as $propertyName => $order) {
             if (!in_array($propertyName, $this->allowedProperties)) {
                 $filters = "'" . implode("','", $this->allowedProperties) . "'";
@@ -66,15 +78,17 @@ class CriteriaFactory
 
             $order = strtoupper($order);
             if (!in_array($order, [Criteria::ASC, Criteria::DESC])) {
-                $orders = "'" . Criteria::ASC . "','" . Criteria::DESC. "'";
+                $orders = "'" . Criteria::ASC . "', '" . Criteria::DESC. "'";
 
                 throw new FilterArgumentException(
                     "Order type '{$order}' is not allowed! Allowed: {$orders}."
                 );
             }
+
+            $orderParameters[$this->propertyMap[$propertyName] ?? $propertyName] = $order;
         }
 
-        return new Criteria(null, $orderData);
+        return new Criteria(null, $orderParameters);
     }
 
     /**
