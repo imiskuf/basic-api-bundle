@@ -5,7 +5,6 @@ namespace Imiskuf\BasicApiBundle\Controller;
 use Imiskuf\BasicApiBundle\Exception\Http\ApiProblemException;
 use Imiskuf\BasicApiBundle\Model\Http\ApiProblem;
 use Imiskuf\BasicApiBundle\Model\Http\ApiResponse;
-use Imiskuf\BasicApiBundle\Model\SerializableInterface;
 use Exception;
 use JMS\Serializer\SerializationContext;
 use JMS\Serializer\SerializerInterface;
@@ -14,10 +13,12 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController as BaseAbstractController;
 use Symfony\Component\Validator\ConstraintViolationInterface;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 abstract class AbstractController extends BaseAbstractController
 {
     private const SERIALIZER_SERVICE_ID = 'jms_serializer';
+    private const VALIDATOR_SERVICE_ID = 'validator';
 
     /**
      * @return array
@@ -25,7 +26,8 @@ abstract class AbstractController extends BaseAbstractController
     public static function getSubscribedServices(): array
     {
         return array_merge(parent::getSubscribedServices(), [
-            self::SERIALIZER_SERVICE_ID => SerializerInterface::class
+            self::SERIALIZER_SERVICE_ID => SerializerInterface::class,
+            self::VALIDATOR_SERVICE_ID => ValidatorInterface::class
         ]);
     }
 
@@ -35,6 +37,14 @@ abstract class AbstractController extends BaseAbstractController
     public function getSerializer(): SerializerInterface
     {
         return $this->getService(self::SERIALIZER_SERVICE_ID);
+    }
+
+    /**
+     * @return ValidatorInterface
+     */
+    public function getValidator(): ValidatorInterface
+    {
+        return $this->getService(self::VALIDATOR_SERVICE_ID);
     }
 
     /**
@@ -132,6 +142,13 @@ abstract class AbstractController extends BaseAbstractController
     protected function getInternalServerErrorException(Exception $e): ApiProblemException
     {
         return $this->createApiException(null, ApiResponse::HTTP_INTERNAL_SERVER_ERROR, $e->getMessage());
+    }
+
+    protected function validate($model, array $groups = null, array $constraints = null): void
+    {
+        $this->throwExceptionIfNotValid(
+            $this->getValidator()->validate($model, $constraints, $groups)
+        );
     }
 
     /**
