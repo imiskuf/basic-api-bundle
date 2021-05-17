@@ -51,6 +51,22 @@ abstract class AbstractController extends BaseAbstractController
     }
 
     /**
+     * @param Request $request
+     * @param string $modelClass
+     * @param string $bodyFormat
+     * @throws ApiProblemException
+     * @return mixed
+     */
+    public function createModel(Request $request, string $modelClass, string $bodyFormat = 'json')
+    {
+        return $this->getSerializer()->deserialize(
+            $this->requireRequestData($request),
+            $modelClass,
+            $bodyFormat
+        );
+    }
+
+    /**
      * @param mixed $data
      * @param int $statusCode
      * @param array|null $groups
