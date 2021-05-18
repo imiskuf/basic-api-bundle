@@ -201,11 +201,11 @@ abstract class AbstractController extends BaseAbstractController
      */
     protected function requireRequestData(Request $request): string
     {
-        if (empty($request->getContent())) {
+        if (empty($content = $request->getContent()) || null === json_decode($content)) {
             throw $this->createInvalidBodyException();
         }
 
-        return $request->getContent();
+        return $content;
     }
 
     /**
