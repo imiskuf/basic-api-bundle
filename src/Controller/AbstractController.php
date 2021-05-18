@@ -6,6 +6,9 @@ use Imiskuf\BasicApiBundle\Exception\Http\ApiProblemException;
 use Imiskuf\BasicApiBundle\Model\Http\ApiProblem;
 use Imiskuf\BasicApiBundle\Model\Http\ApiResponse;
 use Exception;
+use JMS\Serializer\Metadata\PropertyMetadata;
+use JMS\Serializer\Naming\IdenticalPropertyNamingStrategy;
+use JMS\Serializer\Naming\PropertyNamingStrategyInterface;
 use JMS\Serializer\SerializationContext;
 use JMS\Serializer\SerializerInterface;
 use LogicException;
@@ -19,6 +22,11 @@ abstract class AbstractController extends BaseAbstractController
 {
     private const SERIALIZER_SERVICE_ID = 'jms_serializer';
     private const VALIDATOR_SERVICE_ID = 'validator';
+
+    /**
+     * @var
+     */
+    private $namingStrategy = null;
 
     /**
      * @return array
@@ -60,6 +68,11 @@ abstract class AbstractController extends BaseAbstractController
         throw new LogicException("No service with ID '{$serviceId}' supported!");
     }
 
+    protected function setSerializerNamingStrategy(PropertyNamingStrategyInterface $strategy): void
+    {
+        $this->namingStrategy = $strategy;
+    }
+
     /**
      * @param Request $request
      * @param string $modelClass
@@ -67,7 +80,7 @@ abstract class AbstractController extends BaseAbstractController
      * @throws ApiProblemException
      * @return mixed
      */
-    public function createModel(Request $request, string $modelClass, string $bodyFormat = 'json')
+    protected function createModel(Request $request, string $modelClass, string $bodyFormat = 'json')
     {
         return $this->getSerializer()->deserialize(
             $this->requireRequestData($request),
@@ -202,13 +215,24 @@ abstract class AbstractController extends BaseAbstractController
     private function getValidationErrors(ConstraintViolationListInterface $constraintViolationList): array
     {
         $errors = [];
+        $strategy = $this->getSerializerNamingStrategy();
+
         foreach ($constraintViolationList as $key => $error) {
             $errors[$key] = [
-                'field' => $error->getPropertyPath(),
+                'field' => $strategy->translateName(new PropertyMetadata('', $error->getPropertyPath())),
                 'message' => $error->getMessage()
             ];
         }
 
         return $errors;
+    }
+
+    private function getSerializerNamingStrategy(): PropertyNamingStrategyInterface
+    {
+        if (null === $this->namingStrategy) {
+            $this->namingStrategy = new IdenticalPropertyNamingStrategy();
+        }
+
+        return $this->namingStrategy;
     }
 }
