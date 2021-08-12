@@ -3,11 +3,13 @@
 namespace Imiskuf\BasicApiBundle\Model\Collection;
 
 use Imiskuf\BasicApiBundle\Model\SerializableInterface;
+use JMS\Serializer\Annotation as Serializer;
 
 class Collection implements SerializableInterface
 {
     /**
      * @var array
+     * @Serializer\Groups({"collection"})
      */
     protected $items;
 

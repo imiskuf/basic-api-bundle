@@ -2,27 +2,33 @@
 
 namespace Imiskuf\BasicApiBundle\Model\Collection;
 
+use JMS\Serializer\Annotation as Serializer;
+
 class PaginatedCollection extends Collection
 {
     const DEFAULT_ITEMS_PER_PAGE = 10;
 
     /**
      * @var int
+     * @Serializer\Groups({"collection"})
      */
     private $page;
 
     /**
      * @var int
+     * @Serializer\Groups({"collection"})
      */
     private $total;
 
     /**
      * @var int
+     * @Serializer\Groups({"collection"})
      */
     private $count;
 
     /**
      * @var array
+     * @Serializer\Groups({"collection"})
      */
     private $_links = [];
 
