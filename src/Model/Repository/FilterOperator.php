@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\Expr\Comparison;
 
 interface FilterOperator
 {
+    const NULL_OPERATOR = 'null';
     const OPERATOR_MAP = [
         'eq'  => Comparison::EQ,
         'neq' => Comparison::NEQ,

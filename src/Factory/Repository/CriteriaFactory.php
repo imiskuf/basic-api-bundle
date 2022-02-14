@@ -46,7 +46,21 @@ class CriteriaFactory
             }
 
             foreach ($expression as $operator => $value) {
+                $operator = strtolower($operator);
+                if ($operator === FilterOperator::NULL_OPERATOR) {
+                    $criteria->andWhere(
+                        new Comparison(
+                            $this->propertyMap[$propertyName] ?? $propertyName,
+                            (bool) $value ? Comparison::EQ : Comparison::NEQ,
+                            null
+                        )
+                    );
+
+                    continue;
+                }
+
                 $mappedOperator = $this->getMappedOperator($operator);
+
                 $criteria->andWhere(
                     new Comparison(
                         $this->propertyMap[$propertyName] ?? $propertyName,
