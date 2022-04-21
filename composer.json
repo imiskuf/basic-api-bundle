@@ -13,7 +13,7 @@
     "require": {
         "php": "^7.1.0",
         "doctrine/orm": "^2.6",
-        "jms/serializer-bundle": "^3.3",
+        "jms/serializer-bundle": "^4.0",
         "symfony/expression-language": "*",
         "symfony/property-access": "*",
         "symfony/validator": "*",
