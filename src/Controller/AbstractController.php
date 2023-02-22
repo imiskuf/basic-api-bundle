@@ -223,7 +223,8 @@ abstract class AbstractController extends BaseAbstractController
         foreach ($constraintViolationList as $key => $error) {
             $errors[$key] = [
                 'field' => $strategy->translateName(new PropertyMetadata('', $error->getPropertyPath())),
-                'message' => $error->getMessage()
+                'message' => $error->getMessage(),
+                'value' => $error->getInvalidValue()
             ];
         }
 
