@@ -173,7 +173,10 @@ abstract class AbstractController extends BaseAbstractController
             return;
         }
 
-        $exception = $this->createApiException('Request contains validation errors!');
+        $exception = $this->createApiException(
+            'Request contains validation errors!',
+            ApiResponse::HTTP_UNPROCESSABLE_ENTITY
+        );
         $exception->getApiProblem()->set('validation_errors', $this->getValidationErrors($constraintViolationList));
 
         throw $exception;
