@@ -126,7 +126,7 @@ abstract class AbstractController extends BaseAbstractController
      */
     protected function createInvalidBodyException(): ApiProblemException
     {
-        return $this->createApiException('Request has empty or invalid JSON in body!', ApiResponse::HTTP_BAD_REQUEST);
+        return $this->createApiException('Request has empty or invalid JSON in body!');
     }
 
     /**
@@ -173,7 +173,7 @@ abstract class AbstractController extends BaseAbstractController
             return;
         }
 
-        $exception = $this->createInvalidBodyException();
+        $exception = $this->createApiException('Request contains validation errors!');
         $exception->getApiProblem()->set('validation_errors', $this->getValidationErrors($constraintViolationList));
 
         throw $exception;
