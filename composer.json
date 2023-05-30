@@ -11,9 +11,9 @@
         }
     ],
     "require": {
-        "php": "^7.1.0",
+        "php": "^7.2.0||^8.0",
         "doctrine/orm": "^2.6",
-        "jms/serializer-bundle": "^3.3",
+        "jms/serializer-bundle": "^5.2",
         "symfony/expression-language": "*",
         "symfony/property-access": "*",
         "symfony/validator": "*",
