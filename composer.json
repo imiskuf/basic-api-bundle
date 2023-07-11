@@ -14,9 +14,9 @@
         "php": "^7.2.0||^8.0",
         "doctrine/orm": "^2.6",
         "jms/serializer-bundle": "^5.2",
-        "symfony/expression-language": "*",
-        "symfony/property-access": "*",
-        "symfony/validator": "*",
+        "symfony/expression-language": "^4.4.20||^5.0.11||^6.0",
+        "symfony/property-access": "^4.4.20||^5.0.11||^6.0",
+        "symfony/validator": "^4.4.20||^5.0.11||^6.0",
         "pagerfanta/pagerfanta": "^1.1"
     },
     "require-dev": {},
