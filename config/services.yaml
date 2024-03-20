@@ -14,3 +14,7 @@ services:
     Imiskuf\BasicApiBundle\EventSubscriber\LinkSerializerSubscriber:
         tags:
             - { name: jms_serializer.event_subscriber }
+
+    JMS\Serializer\Handler\EnumHandler:
+        tags:
+            - { name: jms_serializer.subscribing_handler }
