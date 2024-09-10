@@ -5,8 +5,8 @@ namespace Imiskuf\BasicApiBundle\Factory\Entity;
 use Imiskuf\BasicApiBundle\Exception\Entity\EntityBuildException;
 use Imiskuf\BasicApiBundle\Model\DtoInterface;
 use Imiskuf\BasicApiBundle\Model\EntityInterface;
-use Exception;
 use Symfony\Component\PropertyAccess\PropertyAccessor;
+use Throwable;
 
 class EntityFactory
 {
@@ -47,7 +47,7 @@ class EntityFactory
             foreach ($dto->toArray() as $property => $value) {
                 $propertyAccessor->setValue($entity, $property, $value);
             }
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             throw new EntityBuildException('', 0, $e);
         }
     }
