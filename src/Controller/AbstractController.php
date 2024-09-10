@@ -5,7 +5,6 @@ namespace Imiskuf\BasicApiBundle\Controller;
 use Imiskuf\BasicApiBundle\Exception\Http\ApiProblemException;
 use Imiskuf\BasicApiBundle\Model\Http\ApiProblem;
 use Imiskuf\BasicApiBundle\Model\Http\ApiResponse;
-use Exception;
 use JMS\Serializer\Metadata\PropertyMetadata;
 use JMS\Serializer\Naming\IdenticalPropertyNamingStrategy;
 use JMS\Serializer\Naming\PropertyNamingStrategyInterface;
@@ -17,6 +16,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController as BaseAbstract
 use Symfony\Component\Validator\ConstraintViolationInterface;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Throwable;
 
 abstract class AbstractController extends BaseAbstractController
 {
@@ -152,7 +152,7 @@ abstract class AbstractController extends BaseAbstractController
      * @param Exception $e
      * @return ApiProblemException
      */
-    protected function getInternalServerErrorException(Exception $e): ApiProblemException
+    protected function getInternalServerErrorException(Throwable $e): ApiProblemException
     {
         return $this->createApiException(null, ApiResponse::HTTP_INTERNAL_SERVER_ERROR, $e->getMessage());
     }

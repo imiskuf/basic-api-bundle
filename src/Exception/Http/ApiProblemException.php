@@ -3,8 +3,8 @@
 namespace Imiskuf\BasicApiBundle\Exception\Http;
 
 use Imiskuf\BasicApiBundle\Model\Http\ApiProblem;
-use Exception;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use Throwable;
 
 class ApiProblemException extends HttpException
 {
@@ -13,7 +13,7 @@ class ApiProblemException extends HttpException
      */
     private $apiProblem;
 
-    public function __construct(ApiProblem $apiProblem, Exception $previous = NULL, array $headers = [], ?int $code = 0)
+    public function __construct(ApiProblem $apiProblem, Throwable $previous = NULL, array $headers = [], ?int $code = 0)
     {
         $this->apiProblem = $apiProblem;
 
