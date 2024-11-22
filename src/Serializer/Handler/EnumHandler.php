@@ -10,7 +10,7 @@ use JMS\Serializer\Visitor\DeserializationVisitorInterface;
 use JMS\Serializer\Visitor\SerializationVisitorInterface;
 use UnitEnum;
 
-enum EnumHandler implements SubscribingHandlerInterface
+final class EnumHandler implements SubscribingHandlerInterface
 {
     public static function getSubscribingMethods(): array
     {
