@@ -33,6 +33,12 @@ class PaginatedCollection extends Collection
     private $_links = [];
 
     /**
+     * @var array
+     * @Serializer\Groups({"collection"})
+     */
+    private $extra = [];
+
+    /**
      * @param mixed $items
      * @param int $total
      * @param int $page
@@ -44,6 +50,11 @@ class PaginatedCollection extends Collection
         $this->page = $page;
 
         parent::__construct($items);
+    }
+
+    public function addExtra(string $key, $value): void
+    {
+        $this->extra[$key] = $value;
     }
 
     /**
