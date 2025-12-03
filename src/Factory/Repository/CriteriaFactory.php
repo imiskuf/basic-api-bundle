@@ -2,6 +2,7 @@
 
 namespace Imiskuf\BasicApiBundle\Factory\Repository;
 
+use Imiskuf\BasicApiBundle\Enum\FilterMode;
 use Imiskuf\BasicApiBundle\Exception\Repository\FilterArgumentException;
 use Imiskuf\BasicApiBundle\Model\Repository\FilterOperator;
 use Doctrine\Common\Collections\Criteria;
@@ -29,12 +30,14 @@ class CriteriaFactory
         $this->propertyMap = $propertyMap;
     }
 
-    /**
-     * @param array $filterData
-     * @return Criteria
-     */
-    public function createFilterCriteria(array $filterData): Criteria
+    public function createFilterCriteria(array $filterData, string $mode): Criteria
     {
+        $mode = strtolower($mode);
+        if (!in_array($mode, [FilterMode::AND, FilterMode::OR])) {
+            throw new FilterArgumentException("Invalid filter mode '$mode'! Allowed modes: 'and', 'or'.");
+        }
+
+        $conditionMethod = $mode === FilterMode::AND ? 'andWhere' : 'orWhere';
         $criteria = new Criteria();
         foreach ($filterData as $propertyName => $expression) {
             if (!in_array($propertyName, $this->allowedProperties)) {
@@ -48,7 +51,7 @@ class CriteriaFactory
             foreach ($expression as $operator => $value) {
                 $operator = strtolower($operator);
                 if ($operator === FilterOperator::NULL_OPERATOR) {
-                    $criteria->andWhere(
+                    $criteria->{$conditionMethod}(
                         new Comparison(
                             $this->propertyMap[$propertyName] ?? $propertyName,
                             (bool) $value ? Comparison::EQ : Comparison::NEQ,
@@ -61,7 +64,7 @@ class CriteriaFactory
 
                 $mappedOperator = $this->getMappedOperator($operator);
 
-                $criteria->andWhere(
+                $criteria->{$conditionMethod}(
                     new Comparison(
                         $this->propertyMap[$propertyName] ?? $propertyName,
                         $mappedOperator,

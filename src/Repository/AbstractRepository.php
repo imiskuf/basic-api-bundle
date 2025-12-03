@@ -2,6 +2,7 @@
 
 namespace Imiskuf\BasicApiBundle\Repository;
 
+use Imiskuf\BasicApiBundle\Enum\FilterMode;
 use Imiskuf\BasicApiBundle\Factory\Repository\CriteriaFactory;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
@@ -27,7 +28,12 @@ abstract class AbstractRepository extends EntityRepository
 
         $filterFactory = new CriteriaFactory($this->getAllowedProperties($excludedProperties));
         if ($parameters->has('filter')) {
-            $qb->addCriteria($filterFactory->createFilterCriteria($parameters->get('filter')));
+            $qb->addCriteria(
+                $filterFactory->createFilterCriteria(
+                    $parameters->get('filter'),
+                    $parameters->get('mode', FilterMode::AND)
+                )
+            );
         }
 
         if ($parameters->has('order')) {
