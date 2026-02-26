@@ -20,7 +20,7 @@ class LinkSerializerSubscriber implements EventSubscriberInterface
     private $router;
 
     /**
-     * @var Reader
+     * @var Reader|null
      */
     private $annotationReader;
 
@@ -31,11 +31,11 @@ class LinkSerializerSubscriber implements EventSubscriberInterface
 
     /**
      * @param RouterInterface $router
-     * @param Reader $annotationReader
+     * @param Reader|null $annotationReader
      */
     public function __construct(
         RouterInterface $router,
-        Reader $annotationReader
+        Reader $annotationReader = null
     ) {
         $this->router = $router;
         $this->annotationReader = $annotationReader;
@@ -62,9 +62,17 @@ class LinkSerializerSubscriber implements EventSubscriberInterface
         $visitor = $event->getVisitor();
 
         $object = $event->getObject();
-        $annotations = $this->annotationReader->getClassAnnotations(
-            new ReflectionObject($object)
-        );
+        $reflection = new ReflectionObject($object);
+        $annotations = [];
+
+        if (null !== $this->annotationReader) {
+            $annotations = $this->annotationReader->getClassAnnotations($reflection);
+        }
+
+        $attributes = $reflection->getAttributes(Link::class);
+        foreach ($attributes as $attribute) {
+            $annotations[] = $attribute->newInstance();
+        }
 
         $links = [];
         foreach ($annotations as $annotation) {
