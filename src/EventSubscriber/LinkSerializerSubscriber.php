@@ -3,7 +3,6 @@
 namespace Imiskuf\BasicApiBundle\EventSubscriber;
 
 use Imiskuf\BasicApiBundle\Annotation\Link;
-use Doctrine\Common\Annotations\Reader;
 use JMS\Serializer\EventDispatcher\EventSubscriberInterface;
 use JMS\Serializer\EventDispatcher\ObjectEvent;
 use JMS\Serializer\JsonSerializationVisitor;
@@ -14,37 +13,16 @@ use Symfony\Component\Routing\RouterInterface;
 
 class LinkSerializerSubscriber implements EventSubscriberInterface
 {
-    /**
-     * @var RouterInterface
-     */
-    private $router;
+    private RouterInterface $router;
 
-    /**
-     * @var Reader|null
-     */
-    private $annotationReader;
+    private ExpressionLanguage $expressionLanguage;
 
-    /**
-     * @var ExpressionLanguage
-     */
-    private $expressionLanguage;
-
-    /**
-     * @param RouterInterface $router
-     * @param Reader|null $annotationReader
-     */
-    public function __construct(
-        RouterInterface $router,
-        Reader $annotationReader = null
-    ) {
+    public function __construct(RouterInterface $router)
+    {
         $this->router = $router;
-        $this->annotationReader = $annotationReader;
         $this->expressionLanguage = new ExpressionLanguage();
     }
 
-    /**
-     * @return array
-     */
     public static function getSubscribedEvents(): array
     {
         return [
@@ -54,7 +32,7 @@ class LinkSerializerSubscriber implements EventSubscriberInterface
                 'format' => 'json'
             ]
         ];
-    }
+    }K
 
     public function onPostSerialize(ObjectEvent $event): void
     {
@@ -63,26 +41,17 @@ class LinkSerializerSubscriber implements EventSubscriberInterface
 
         $object = $event->getObject();
         $reflection = new ReflectionObject($object);
-        $annotations = [];
-
-        if (null !== $this->annotationReader) {
-            $annotations = $this->annotationReader->getClassAnnotations($reflection);
-        }
 
         $attributes = $reflection->getAttributes(Link::class);
-        foreach ($attributes as $attribute) {
-            $annotations[] = $attribute->newInstance();
-        }
-
         $links = [];
-        foreach ($annotations as $annotation) {
-            if (!$annotation instanceof Link) {
-                continue;
-            }
 
-            $links[$annotation->name] = $this->router->generate(
-                $annotation->route,
-                $this->resolveParameters($annotation->parameters, $object)
+        foreach ($attributes as $attribute) {
+            /** @var Link $link */
+            $link = $attribute->newInstance();
+
+            $links[$link->name] = $this->router->generate(
+                $link->route,
+                $this->resolveParameters($link->parameters, $object)
             );
         }
 
@@ -91,12 +60,7 @@ class LinkSerializerSubscriber implements EventSubscriberInterface
         }
     }
 
-    /**
-     * @param array $parameters
-     * @param $object
-     * @return array
-     */
-    private function resolveParameters(array $parameters, $object): array
+    private function resolveParameters(array $parameters, object $object): array
     {
         foreach ($parameters as $key => $value) {
             $parameters[$key] = $this->expressionLanguage->evaluate($value, ['object' => $object]);
