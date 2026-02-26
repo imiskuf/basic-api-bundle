@@ -32,7 +32,7 @@ class LinkSerializerSubscriber implements EventSubscriberInterface
                 'format' => 'json'
             ]
         ];
-    }K
+    }
 
     public function onPostSerialize(ObjectEvent $event): void
     {
