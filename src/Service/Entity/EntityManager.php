@@ -7,15 +7,14 @@ use Imiskuf\BasicApiBundle\Exception\Entity\EntityOperationException;
 use Imiskuf\BasicApiBundle\Factory\Entity\EntityFactory;
 use Imiskuf\BasicApiBundle\Model\DtoInterface;
 use Imiskuf\BasicApiBundle\Model\EntityInterface;
-use Doctrine\ORM\EntityManager as BaseEntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\ORMException;
+use Throwable;
 
 class EntityManager
 {
     /**
-     * @var EntityManagerInterface|BaseEntityManager
+     * @var EntityManagerInterface
      */
     private $em;
 
@@ -45,8 +44,8 @@ class EntityManager
             $entity = $this->factory->createFromDto($data, $entityClass);
 
             $this->em->persist($entity);
-            $this->em->flush($entity);
-        } catch (ORMException | EntityBuildException $e) {
+            $this->em->flush();
+        } catch (Throwable $e) {
             throw new EntityOperationException('Cannot add entity!', 0, $e);
         }
 
@@ -60,10 +59,10 @@ class EntityManager
     public function update(DtoInterface $data, EntityInterface $entity): void
     {
         try {
-            $entity = $this->factory->updateFromDto($data, $entity);
+            $this->factory->updateFromDto($data, $entity);
 
-            $this->em->flush($entity);
-        } catch (ORMException | EntityBuildException $e) {
+            $this->em->flush();
+        } catch (Throwable $e) {
             throw new EntityOperationException('Cannot update entity!', 0, $e);
         }
     }
@@ -75,8 +74,8 @@ class EntityManager
     {
         try {
             $this->em->remove($entity);
-            $this->em->flush($entity);
-        } catch (ORMException | EntityBuildException $e) {
+            $this->em->flush();
+        } catch (Throwable $e) {
             throw new EntityOperationException('Cannot remove entity!', 0, $e);
         }
     }

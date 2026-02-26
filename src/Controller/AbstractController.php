@@ -96,7 +96,7 @@ abstract class AbstractController extends BaseAbstractController
      * @return ApiResponse
      */
     protected function createApiResponse(
-        $data,
+        mixed $data,
         int $statusCode = ApiResponse::HTTP_OK,
         array $groups = null
     ): ApiResponse {
@@ -157,7 +157,7 @@ abstract class AbstractController extends BaseAbstractController
         return $this->createApiException(null, ApiResponse::HTTP_INTERNAL_SERVER_ERROR, $e->getMessage());
     }
 
-    protected function validate($model, array $groups = null, array $constraints = null): void
+    protected function validate(mixed $model, array $groups = null, array $constraints = null): void
     {
         $this->throwExceptionIfNotValid(
             $this->getValidator()->validate($model, $constraints, $groups)

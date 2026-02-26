@@ -11,7 +11,7 @@ class ApiResponse extends JsonResponse
      * @param int $status The response status code
      * @param array $headers An array of response headers
      */
-    public function __construct($data = null, int $status = 200, array $headers = array())
+    public function __construct(mixed $data = null, int $status = 200, array $headers = [])
     {
         parent::__construct($data, $status, $headers, true);
     }
