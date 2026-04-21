@@ -31,7 +31,7 @@ class ApiProblem implements ArrayableInterface
      * @param string|null $detail
      * @param int|null $errorCode
      */
-    public function __construct(int $statusCode, string $message = null, string $detail = null, int $errorCode = null)
+    public function __construct(int $statusCode, ?string $message = null, ?string $detail = null, ?int $errorCode = null)
     {
         if (null === $message) {
             $message = Response::$statusTexts[$statusCode] ?? 'Unknown status code';

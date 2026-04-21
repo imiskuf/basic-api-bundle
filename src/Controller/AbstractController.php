@@ -98,7 +98,7 @@ abstract class AbstractController extends BaseAbstractController
     protected function createApiResponse(
         mixed $data,
         int $statusCode = ApiResponse::HTTP_OK,
-        array $groups = null
+        ?array $groups = null
     ): ApiResponse {
         $context = new SerializationContext();
         $context->setSerializeNull(true);
@@ -137,10 +137,10 @@ abstract class AbstractController extends BaseAbstractController
      * @return ApiProblemException
      */
     protected function createApiException(
-        string $message = null,
+        ?string $message = null,
         int $statusCode = ApiResponse::HTTP_BAD_REQUEST,
-        string $detail = null,
-        int $errorCode = null
+        ?string $detail = null,
+        ?int $errorCode = null
     ): ApiProblemException
     {
         return new ApiProblemException(
@@ -157,7 +157,7 @@ abstract class AbstractController extends BaseAbstractController
         return $this->createApiException(null, ApiResponse::HTTP_INTERNAL_SERVER_ERROR, $e->getMessage());
     }
 
-    protected function validate(mixed $model, array $groups = null, array $constraints = null): void
+    protected function validate(mixed $model, ?array $groups = null, ?array $constraints = null): void
     {
         $this->throwExceptionIfNotValid(
             $this->getValidator()->validate($model, $constraints, $groups)

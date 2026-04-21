@@ -31,7 +31,7 @@ class PaginatedCollectionFactory
     public function createCollection(
         Pagerfanta $pagerfanta,
         Request $request,
-        callable $collectionCallback = null
+        ?callable $collectionCallback = null
     ): PaginatedCollection
     {
         $page = $request->query->get('page', 1);
