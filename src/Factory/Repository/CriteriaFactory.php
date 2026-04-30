@@ -60,13 +60,21 @@ class CriteriaFactory
      * Each node can contain 'conditions' (leaf comparisons), 'groups' (sub-nodes), or both.
      * All expressions within a node are combined using the node's 'mode' (defaults to 'and').
      *
-     * Syntax:
+     * Long syntax:
      *   filterGroups[mode]=or
      *   filterGroups[groups][0][mode]=and
      *   filterGroups[groups][0][conditions][<property>][<operator>]=<value>
      *   filterGroups[groups][1][mode]=and
      *   filterGroups[groups][1][groups][0][conditions][<property>][<operator>]=<value>
      *   filterGroups[groups][1][groups][1][conditions][<property>][<operator>]=<value>
+     *
+     * Short syntax:
+     *   fg[m]=or
+     *   fg[g][0][m]=and
+     *   fg[g][0][c][<property>][<operator>]=<value>
+     *   fg[g][1][m]=and
+     *   fg[g][1][g][0][c][<property>][<operator>]=<value>
+     *   fg[g][1][g][1][c][<property>][<operator>]=<value>
      *
      * @param array $node  Root node with optional 'mode', 'conditions', and 'groups'
      */
@@ -82,17 +90,19 @@ class CriteriaFactory
 
     private function buildGroup(array $node): ?Expression
     {
-        $mode = strtolower($node['mode'] ?? FilterMode::AND);
+        $mode = strtolower($node['m'] ?? $node['mode'] ?? FilterMode::AND);
         $this->validateMode($mode);
 
         $expressions = [];
 
-        if (isset($node['conditions']) && is_array($node['conditions'])) {
-            $expressions = array_merge($expressions, $this->buildConditions($node['conditions']));
+        $conditions = $node['c'] ?? $node['conditions'] ?? null;
+        if (is_array($conditions)) {
+            $expressions = array_merge($expressions, $this->buildConditions($conditions));
         }
 
-        if (isset($node['groups']) && is_array($node['groups'])) {
-            foreach ($node['groups'] as $subGroup) {
+        $groups = $node['g'] ?? $node['groups'] ?? null;
+        if (is_array($groups)) {
+            foreach ($groups as $subGroup) {
                 $subExpression = $this->buildGroup($subGroup);
                 if ($subExpression !== null) {
                     $expressions[] = $subExpression;

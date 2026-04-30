@@ -28,9 +28,9 @@ abstract class AbstractRepository extends EntityRepository
 
         $filterFactory = new CriteriaFactory($this->getAllowedProperties($excludedProperties));
 
-        if ($parameters->has('filterGroups')) {
+        if ($parameters->has('fg') || $parameters->has('filterGroups')) {
             $qb->addCriteria(
-                $filterFactory->createGroupedFilterCriteria($parameters->get('filterGroups'))
+                $filterFactory->createGroupedFilterCriteria($parameters->get('fg') ?? $parameters->get('filterGroups'))
             );
         } elseif ($parameters->has('filter')) {
             $qb->addCriteria(
