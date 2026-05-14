@@ -8,29 +8,20 @@ class PaginatedCollection extends Collection
 {
     const DEFAULT_ITEMS_PER_PAGE = 10;
 
-    /**
-     * @var int
-     * @Serializer\Groups({"collection"})
-     */
+    #[Serializer\Groups(["collection"])]
     private $page;
 
-    /**
-     * @var int
-     * @Serializer\Groups({"collection"})
-     */
+    #[Serializer\Groups(["collection"])]
     private $total;
 
-    /**
-     * @var int
-     * @Serializer\Groups({"collection"})
-     */
+    #[Serializer\Groups(["collection"])]
     private $count;
 
-    /**
-     * @var array
-     * @Serializer\Groups({"collection"})
-     */
+    #[Serializer\Groups(["collection"])]
     private $_links = [];
+
+    #[Serializer\Groups(["collection"])]
+    private $extra = [];
 
     /**
      * @param mixed $items
@@ -44,6 +35,11 @@ class PaginatedCollection extends Collection
         $this->page = $page;
 
         parent::__construct($items);
+    }
+
+    public function addExtra(string $key, $value): void
+    {
+        $this->extra[$key] = $value;
     }
 
     /**
