@@ -7,10 +7,7 @@ use JMS\Serializer\Annotation as Serializer;
 
 class Collection implements SerializableInterface
 {
-    /**
-     * @var array
-     * @Serializer\Groups({"collection"})
-     */
+    #[Serializer\Groups(["collection"])]
     protected $items;
 
     /**
