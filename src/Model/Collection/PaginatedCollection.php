@@ -8,34 +8,19 @@ class PaginatedCollection extends Collection
 {
     const DEFAULT_ITEMS_PER_PAGE = 10;
 
-    /**
-     * @var int
-     * @Serializer\Groups({"collection"})
-     */
+    #[Serializer\Groups(["collection"])]
     private $page;
 
-    /**
-     * @var int
-     * @Serializer\Groups({"collection"})
-     */
+    #[Serializer\Groups(["collection"])]
     private $total;
 
-    /**
-     * @var int
-     * @Serializer\Groups({"collection"})
-     */
+    #[Serializer\Groups(["collection"])]
     private $count;
 
-    /**
-     * @var array
-     * @Serializer\Groups({"collection"})
-     */
+    #[Serializer\Groups(["collection"])]
     private $_links = [];
 
-    /**
-     * @var array
-     * @Serializer\Groups({"collection"})
-     */
+    #[Serializer\Groups(["collection"])]
     private $extra = [];
 
     /**
